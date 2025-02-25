@@ -1,7 +1,8 @@
 /* profile.css */
 body {
     font-family: "Arial", sans-serif;
-    background-color: #f8f8f8;
+    background: linear-gradient(135deg, #2b5876, #4e4376);
+
     margin: 0;
     padding: 0;
     display: flex;

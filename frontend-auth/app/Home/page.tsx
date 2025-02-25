@@ -10,8 +10,8 @@ export default function Home() {
           <h1 className={styles.navLogo}>Cabinet Dentaire</h1>
           <ul className={styles.navLinks}>
             <li><a href="#contact" className={styles.navLink}>Contact Us</a></li>
-            <li><a href="#signin" className={styles.navLink}>Sign In</a></li>
-            <li><a href="#signup" className={styles.navLink}>Sign Up</a></li>
+            <li><a href="/login" className={styles.navLink}>Sign In</a></li>
+            <li><a href="/register" className={styles.navLink}>Sign Up</a></li>
             <li><a href="#other" className={styles.navLink}>Other</a></li>
           </ul>
         </div>

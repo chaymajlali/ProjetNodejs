@@ -15,7 +15,7 @@ export default function Profile() {
   if (!user) return <p>Chargement...</p>;
 
   return (
-    <div className="min-h-screen flex items-center justify-center">
+    <div className="min-h-screen">
       <div className="profile-container">
         <h1 className="profile-title">Mon Profil</h1>
         {user.image && (
@@ -28,9 +28,6 @@ export default function Profile() {
         <div className="profile-info">
           <p>
             <strong>Nom :</strong> {user.nom}
-          </p>
-          <p>
-            <strong>Image :</strong> {user.image}
           </p>
           <p>
             <strong>Email :</strong> {user.email}

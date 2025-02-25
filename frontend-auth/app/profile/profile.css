@@ -1,88 +1,71 @@
 /* profile.css */
-body {
-    font-family: "Arial", sans-serif;
-    background-color: #f8f8f8;
-    margin: 0;
-    padding: 0;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    height: 100vh;
-  }
-  
-  .profile-container {
-    max-width: 900px;
-    background: white;
-    padding: 40px;
-    border-radius: 10px;
-    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
-    text-align: center;
-  }
-  
-  .profile-header h1 {
-    font-size: 2rem;
-    font-weight: bold;
-    margin-bottom: 5px;
-  }
-  
-  .profile-header p {
-    font-size: 1.2rem;
-    color: #666;
-  }
-  
-  .profile-content {
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-    margin-top: 30px;
-  }
-  
-  .about-section,
-  .details-section {
-    width: 30%;
-    text-align: left;
-  }
-  
-  .about-section h2,
-  .details-section h2 {
-    font-size: 1.3rem;
-    margin-bottom: 10px;
-  }
-  
-  .about-section p,
-  .details-section p {
-    font-size: 1rem;
-    color: #333;
-    line-height: 1.6;
-  }
-  
-  .profile-image {
-    width: 150px;
-    height: 150px;
-    border-radius: 50%;
-    object-fit: cover;
-    border: 4px solid #ddd;
-    display: block;
-    margin: auto;
-  }
-  
-  .details-section strong {
-    font-weight: bold;
-  }
-  
-  .social-icons {
-    margin-top: 10px;
-  }
-  
-  .social-icons a {
-    text-decoration: none;
-    color: #333;
-    font-size: 20px;
-    margin: 0 5px;
-    transition: color 0.3s;
-  }
-  
-  .social-icons a:hover {
-    color: #4c60af;
-  }
-  
+.min-h-screen {
+  min-height: 100vh;
+  background-color: #e0f7fa; /* Couleur de fond claire */
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-family: 'Arial', sans-serif;
+}
+
+.profile-container {
+  background-color: white;
+  padding: 2rem;
+  border-radius: 15px;
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+  text-align: center;
+  max-width: 400px;
+  width: 100%;
+}
+
+.profile-title {
+  font-size: 2rem;
+  color: #00796b; /* Couleur verte foncée */
+  margin-bottom: 1rem;
+}
+
+.profile-subtitle {
+  font-size: 1.2rem;
+  color: #004d40; /* Couleur verte plus foncée */
+  margin-bottom: 1.5rem;
+}
+
+.profile-image {
+  width: 150px;
+  height: 150px;
+  border-radius: 50%;
+  margin-bottom: 1.5rem;
+  border: 4px solid #00796b; /* Bordure verte */
+}
+
+.profile-info {
+  text-align: left;
+  margin-bottom: 1.5rem;
+}
+
+.profile-info p {
+  margin: 0.5rem 0;
+  color: #004d40; /* Couleur texte foncée */
+}
+
+.book-now-button {
+  background-color: #00796b; /* Couleur verte */
+  color: white;
+  border: none;
+  padding: 0.75rem 1.5rem;
+  border-radius: 25px;
+  cursor: pointer;
+  font-size: 1rem;
+  margin-top: 1rem;
+}
+
+.book-now-button:hover {
+  background-color: #004d40; /* Couleur verte plus foncée au survol */
+}
+
+.logo {
+  font-size: 1.5rem;
+  font-weight: bold;
+  color: #00796b; /* Couleur du logo */
+  margin-bottom: 1rem;
+}

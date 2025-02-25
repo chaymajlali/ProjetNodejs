@@ -1,0 +1,357 @@
+/* Styles de la navbar */
+.navbar {
+  width: 100%;
+  background-color: rgba(0, 0, 0, 0.475); /* Noir pastel */
+  position: fixed;
+  top: 0;
+  left: 0;
+  padding: 15px 30px; 
+  z-index: 1000;
+  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1); /* Ombre légère */
+  backdrop-filter: blur(12px); /* Flou plus intense */
+  transition: background-color 0.3s ease;
+}
+
+.navContainer {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  max-width: 1200px;
+  margin: 0 auto;
+}
+
+.navLogo {
+  font-size: 1.8rem;
+  color: #fff;
+  font-weight: bold;
+  letter-spacing: 2px;
+  text-transform: uppercase;
+}
+
+.navLinks {
+  display: flex;
+  list-style-type: none;
+}
+
+.navLink {
+  text-decoration: none;
+  color: #fff;
+  margin: 0 20px;
+  font-size: 1.1rem;
+  font-weight: 500;
+  position: relative;
+  padding: 8px 0;
+  transition: color 0.3s ease;
+}
+
+.navLink:hover {
+  color: #ffdf00;
+}
+
+.navLink::after {
+  content: '';
+  position: absolute;
+  width: 100%;
+  height: 3px;
+  background-color: #a29f89;
+  bottom: 0;
+  left: 0;
+  transform: scaleX(0);
+  transition: transform 0.3s ease;
+}
+
+.navLink:hover::after {
+  transform: scaleX(1);
+}
+
+/* Sections principales */
+.container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  min-height: 100vh;
+  background-color: #718090;
+  font-family: Arial, sans-serif;
+  padding: 20px;
+  animation: fadeInBackground 2s ease-in-out;
+}
+
+@keyframes fadeInBackground {
+  0% {
+    background-color: #f9f9f9;
+  }
+  100% {
+    background-color: #517497;
+  }
+}
+
+/* En-tête avec image de fond et overlay ajustée */
+.header {
+  width: 100%;
+  height: 400px;
+  background-image: url('/images/cabinet.jpg.jpg');
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  position: relative;
+  border-radius: 15px;
+  overflow: hidden;
+  margin-top: 80px; /* Pour s'assurer que l'image est en dessous de la navbar */
+  animation: fadeInZoom 2s ease-in-out;
+}
+
+@keyframes fadeInZoom {
+  from {
+    transform: scale(1.1);
+    opacity: 0;
+  }
+  to {
+    transform: scale(1);
+    opacity: 1;
+  }
+}
+
+/* Overlay de l'en-tête */
+.overlay {
+  background-color: rgba(0, 0, 0, 0.5);
+  padding: 20px;
+  border-radius: 10px;
+  text-align: center;
+  animation: slideIn 1.5s ease-in-out;
+}
+
+.title {
+  font-size: 3rem;
+  color: #fff;
+  margin-bottom: 10px;
+}
+
+.subtitle {
+  font-size: 1.5rem;
+  color: #fff;
+}
+
+/* Sections principales */
+.main {
+  max-width: 1200px;
+  width: 100%;
+  margin-top: 40px;
+}
+
+.section {
+  margin-bottom: 60px;
+  padding: 20px;
+  background-color: #d2cfcf;
+  border-radius: 10px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  animation: fadeInUp 1s ease-in-out;
+}
+
+.sectionContent {
+  text-align: center;
+}
+
+.sectionTitle {
+  font-size: 2rem;
+  color: #2d485c; /* Couleur bleue vive */
+  font-weight: 700;
+  margin-bottom: 15px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+
+.sectionText {
+  font-size: 1.1rem;
+  color: #555;
+  line-height: 1.6;
+}
+/* Section */
+.section {
+  background-color: #f1f8ff; /* Couleur de fond douce */
+  padding: 40px;
+  border-radius: 8px;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+  margin: 20px 0;
+  text-align: center;
+  position: relative;
+}
+
+/* Titre */
+.sectionTitle {
+  font-size: 2.2rem; /* Taille du texte ajustée */
+  text-align: center;
+  padding: 15px 20px;
+  color: #333; /* Couleur de texte neutre pour un look professionnel */
+  background-color: transparent; /* Suppression du fond pour garder la simplicité */
+  font-weight: bold; /* Texte en gras pour plus d'impact */
+  letter-spacing: 1px; /* Un peu d'espacement entre les lettres pour un effet plus aéré */
+  text-transform: uppercase; /* Mettre le texte en majuscules pour une présentation plus formelle */
+  border-bottom: 3px solid #6c5ce7; /* Ligne sous le texte pour délimiter le titre sans cadre complet */
+  width: fit-content;
+  margin: 0 auto;
+  font-family: 'Helvetica', sans-serif; /* Police moderne et épurée */
+}
+
+
+
+
+.icon {
+  margin-right: 10px;
+  font-size: 1.8rem; 
+}
+
+
+.quote {
+  font-style: italic;
+  color: #555;
+  margin: 20px 0;
+  font-size: 1.2rem;
+}
+
+/* Texte */
+.sectionText {
+  font-size: 1.1rem;
+  color: #333;
+  margin-bottom: 20px;
+}
+
+/* Conteneur d'icônes */
+.iconsContainer {
+  display: flex;
+  justify-content: center;
+  gap: 20px; /* Espacement entre les icônes */
+}
+
+.iconsContainer .icon img {
+  width: 40px; /* Taille des icônes */
+  height: 40px;
+  transition: transform 0.3s ease;
+}
+
+.iconsContainer .icon img:hover {
+  transform: scale(1.2); /* Agrandissement au survol */
+}
+
+
+/* Conteneur des images avec Flexbox */
+.imageContainer {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-top: 20px;
+}
+
+.sectionImage {
+  width: 50%;
+  max-width: 350px;
+  height: auto;
+  border-radius: 30px;
+  margin: 0 10px;
+  animation: zoomIn 1s ease-in-out;
+}
+
+@keyframes zoomIn {
+  from {
+    transform: scale(0.8);
+    opacity: 0;
+  }
+  to {
+    transform: scale(1);
+    opacity: 1;
+  }
+}
+
+/* Pied de page */
+.footer {
+  text-align: center;
+  margin-top: 40px;
+  padding: 20px;
+  background-color: #f4f4f4;
+  width: 100%;
+  border-radius: 10px;
+}
+
+.footerText {
+  font-size: 0.9rem;
+  color: #666;
+}
+
+/* Animations */
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}
+
+@keyframes slideIn {
+  from {
+    transform: translateY(-50px);
+    opacity: 0;
+  }
+  to {
+    transform: translateY(0);
+    opacity: 1;
+  }
+}
+
+@keyframes fadeInUp {
+  from {
+    transform: translateY(50px);
+    opacity: 0;
+  }
+  to {
+    transform: translateY(0);
+    opacity: 1;
+  }
+}
+
+@keyframes zoomIn {
+  from {
+    transform: scale(0.9);
+    opacity: 0;
+  }
+  to {
+    transform: scale(1);
+    opacity: 1;
+  }
+  
+}
+.sectionContent {
+  text-align: center;
+  padding: 20px;
+}
+
+.sectionTitle {
+  font-size: 2rem;
+  color: #333;
+  text-align: center;
+  margin-bottom: 20px;
+}
+
+.sectionText {
+  font-size: 1.2rem;
+  color: #666;
+}
+
+.mapContainer {
+  display: flex;
+  justify-content: center;  /* Centre l'image horizontalement */
+  align-items: center;      /* Centre l'image verticalement (si nécessaire) */
+  margin-top: 20px;
+}
+
+.mapImage {
+  width: 100%;              /* Pour s'assurer qu'elle occupe tout l'espace disponible */
+  max-width: 800px;         /* Limite la largeur à 800px */
+  border: 2px solid #ccc;  /* Ajoute une bordure pour plus de visibilité */
+  border-radius: 10px;      /* Donne un effet arrondi aux coins */
+}

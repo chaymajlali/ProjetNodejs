@@ -1,4 +1,6 @@
+"use client";
 import React from 'react';
+import Link from 'next/link';
 import styles from './Home.module.css';
 
 export default function Home() {
@@ -9,10 +11,16 @@ export default function Home() {
         <div className={styles.navContainer}>
           <h1 className={styles.navLogo}>Cabinet Dentaire</h1>
           <ul className={styles.navLinks}>
+<<<<<<< HEAD
             <li><a href="#contact" className={styles.navLink}>Contact Us</a></li>
             <li><a href="/login" className={styles.navLink}>Sign In</a></li>
             <li><a href="/register" className={styles.navLink}>Sign Up</a></li>
             <li><a href="#other" className={styles.navLink}>Other</a></li>
+=======
+            <li><Link href="#contact" className={styles.navLink}>Contact</Link></li>
+            <li><Link href="/login" className={styles.navLink}>Se connecter</Link></li>
+            <li><Link href="/register" className={styles.navLink}>S'inscrire</Link></li>
+>>>>>>> 29094fddcf6be8efb8d3d3947a205c5e8bfd5e42
           </ul>
         </div>
       </nav>
@@ -35,42 +43,18 @@ export default function Home() {
               Dr ..<br />
               Cabinet Conventionné
             </p>
-           
+
             {/* Section des images */}
             <div className={styles.imageContainer}>
-              <img
-                src="/images/dentiste.jpg"
-                alt="Cabinet Dentaire"
-                className={styles.sectionImage}
-              />
-              <img
-                src="/images/op1.jpg" 
-                alt="Autre image"
-                className={styles.sectionImage}
-              />
-              <img
-                src="/images/sisa.png" 
-                alt="Autre image"
-                className={styles.sectionImage}
-              />
+              <img src="/images/dentiste.jpg" alt="Cabinet Dentaire" className={styles.sectionImage} />
+              <img src="/images/op1.jpg" alt="Autre image" className={styles.sectionImage} />
+              <img src="/images/sisa.png" alt="Autre image" className={styles.sectionImage} />
             </div>
-            
+
             <div className={styles.imageContainer}>
-              <img
-                src="/images/familly.jpg" 
-                alt="Autre image"
-                className={styles.sectionImage}
-              />
-              <img
-                src="/images/appareildentaire.jpg" 
-                alt="Autre image"
-                className={styles.sectionImage}
-              />
-              <img
-                src="/images/operation.jpg" 
-                alt="Autre image"
-                className={styles.sectionImage}
-              />
+              <img src="/images/familly.jpg" alt="Autre image" className={styles.sectionImage} />
+              <img src="/images/appareildentaire.jpg" alt="Autre image" className={styles.sectionImage} />
+              <img src="/images/operation.jpg" alt="Autre image" className={styles.sectionImage} />
             </div>
           </div>
         </section>
@@ -126,11 +110,7 @@ export default function Home() {
           <div className={styles.sectionContent}>
             <h2 className={styles.sectionTitle}>Où nous trouver ?</h2>
             <div className={styles.mapContainer}>
-              <img
-                src="/images/m1.jpg"
-                alt="Carte statique du cabinet"
-                className={styles.mapImage}
-              />
+              <img src="/images/m1.jpg" alt="Carte statique du cabinet" className={styles.mapImage} />
             </div>
           </div>
         </section>

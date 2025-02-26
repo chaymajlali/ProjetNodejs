@@ -18,17 +18,15 @@ export default function Profile() {
     <div className="min-h-screen">
       <div className="profile-container">
         <h1 className="profile-title">Mon Profil</h1>
-        {user.image && (
-          <img
-            src={user.image}
-            alt="Photo de profil"
-            className="profile-image"
-          />
-        )}
+       
         <div className="profile-info">
           <p>
             <strong>Nom :</strong> {user.nom}
           </p>
+<<<<<<< HEAD
+=======
+         
+>>>>>>> 29094fddcf6be8efb8d3d3947a205c5e8bfd5e42
           <p>
             <strong>Email :</strong> {user.email}
           </p>

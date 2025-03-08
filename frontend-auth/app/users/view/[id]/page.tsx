@@ -1,4 +1,3 @@
-// app/users/view/[id]/page.tsx
 "use client";  // Mark this as a client-side component
 
 import { useParams, useRouter } from "next/navigation";  // Use next/navigation
@@ -24,79 +23,90 @@ export default function ViewUser() {
         }
     };
 
-    if (!user) return <div className="text-center">Loading...</div>;  // Show loading state while fetching user
+    if (!user) return <div className="text-center text-gray-500">Loading...</div>;  // Show loading state while fetching user
 
     return (
-        <div className="container mt-5">
-            <div className="row justify-content-center">
-                <div className="col-md-8">
-                    {/* User Details Card */}
-                    <div className="card shadow-lg border-light">
-                        <div className="card-header bg-primary text-white text-center">
-                            <h3 className="mb-0">User Details</h3>
-                        </div>
-                        <div className="card-body">
-                            {/* Common Info: Name, Role, and Email */}
-                            <div className="mb-3">
-                                <h5 className="fw-bold">Name</h5>
-                                <p>{user.nom}</p>
+        <div className="min-h-screen flex justify-center items-center py-6">
+            <div className="bg-white shadow-xl rounded-lg p-8 max-w-2xl w-full">
+                <h1 className="text-3xl font-bold text-center text-gray-800 mb-8">User Details</h1>
+
+                <div className="space-y-6">
+                    {/* Name Display */}
+                    <div>
+                        <label className="block text-lg font-medium text-blue-500 mb-2" htmlFor="name">
+                            Name
+                        </label>
+                        <p className="w-full p-4 rounded-lg border-2 border-gray-300 bg-gray-50 text-black">{user.nom}</p>
+                    </div>
+
+                    {/* Email Display */}
+                    <div>
+                        <label className="block text-lg font-medium text-blue-500 mb-2" htmlFor="email">
+                            Email
+                        </label>
+                        <p className="w-full p-4 rounded-lg border-2 border-gray-300 bg-gray-50 text-black">{user.email}</p>
+                    </div>
+
+                    {/* Role Display */}
+                    <div>
+                        <label className="block text-lg font-medium text-blue-500 mb-2" htmlFor="role">
+                            Role
+                        </label>
+                        <p className="w-full p-4 rounded-lg border-2 border-gray-300 bg-gray-50 text-black">{user.role}</p>
+                    </div>
+
+                    {/* Doctor Specific Info */}
+                    {user.role === "doctor" && (
+                        <>
+                            <div>
+                                <label className="block text-lg font-medium text-blue-500 mb-2" htmlFor="specialite">
+                                    Specialty
+                                </label>
+                                <p className="w-full p-4 rounded-lg border-2 border-gray-300 bg-gray-50 text-black">{user.specialite}</p>
                             </div>
 
-                            <div className="mb-3">
-                                <h5 className="fw-bold">Role</h5>
-                                <p>{user.role}</p>
+                            <div>
+                                <label className="block text-lg font-medium text-blue-500 mb-2" htmlFor="tarif">
+                                    Rate
+                                </label>
+                                <p className="w-full p-4 rounded-lg border-2 border-gray-300 bg-gray-50 text-black">{user.tarif} €</p>
+                            </div>
+                        </>
+                    )}
+
+                    {/* Patient Specific Info */}
+                    {user.role === "patient" && (
+                        <>
+                            <div>
+                                <label className="block text-lg font-medium text-blue-500 mb-2" htmlFor="telephone">
+                                    Phone
+                                </label>
+                                <p className="w-full p-4 rounded-lg border-2 border-gray-300 bg-gray-50 text-black">{user.telephone}</p>
                             </div>
 
-                            <div className="mb-3">
-                                <h5 className="fw-bold">Email</h5>
-                                <p>{user.email}</p>
+                            <div>
+                                <label className="block text-lg font-medium text-blue-500 mb-2" htmlFor="adresse">
+                                    Address
+                                </label>
+                                <p className="w-full p-4 rounded-lg border-2 border-gray-300 bg-gray-50 text-black">{user.adresse}</p>
                             </div>
+                        </>
+                    )}
 
-                            {/* Additional Info Based on Role */}
-                            {user.role === "doctor" && (
-                                <>
-                                    <div className="mb-3">
-                                        <h5 className="fw-bold">Specialite</h5>
-                                        <p>{user.specialite}</p>
-                                    </div>
-
-                                    <div className="mb-3">
-                                        <h5 className="fw-bold">Tarif</h5>
-                                        <p>{user.tarif} €</p>
-                                    </div>
-                                </>
-                            )}
-
-                            {user.role === "patient" && (
-                                <>
-                                    <div className="mb-3">
-                                        <h5 className="fw-bold">Telephone</h5>
-                                        <p>{user.telephone}</p>
-                                    </div>
-
-                                    <div className="mb-3">
-                                        <h5 className="fw-bold">Adresse</h5>
-                                        <p>{user.adresse}</p>
-                                    </div>
-                                </>
-                            )}
-
-                            {/* Buttons */}
-                            <div className="d-flex justify-content-between">
-                                <button
-                                    className="btn btn-secondary"
-                                    onClick={() => window.history.back()}  // Go back to the previous page
-                                >
-                                    Go Back
-                                </button>
-                                <button
-                                    className="btn btn-info"
-                                    onClick={() => window.location.href = `/users/edit/${user._id}`}  // Navigate to edit
-                                >
-                                    Edit User
-                                </button>
-                            </div>
-                        </div>
+                    {/* Action Buttons */}
+                    <div className="flex justify-center space-x-4">
+                        <button
+                            onClick={() => window.history.back()}
+                            className="px-6 py-3 bg-gray-500 text-white rounded-lg font-semibold hover:bg-gray-600 transition-colors w-full sm:w-auto"
+                        >
+                            Go Back
+                        </button>
+                        <button
+                            onClick={() => window.location.href = `/users/edit/${user._id}`}
+                            className="px-6 py-3 bg-blue-500 text-white rounded-lg font-semibold hover:bg-blue-600 transition-colors w-full sm:w-auto"
+                        >
+                            Edit User
+                        </button>
                     </div>
                 </div>
             </div>

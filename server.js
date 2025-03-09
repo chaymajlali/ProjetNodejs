@@ -4,6 +4,7 @@ const cors = require('cors');
 const mongoose = require('mongoose');
 require('dotenv').config();
 const authRouters = require('./routes/auth.routes');
+const userRouters = require('./routes/user.routes');
 
 // Create express app
 const app = express();
@@ -15,6 +16,7 @@ app.use(bodyParser.json());
 
 // Routes
 app.use('/api/auth', authRouters);
+app.use('/api/user', userRouters);
 
 // Connexion à MongoDB
 mongoose.connect(process.env.MONGO_URI)

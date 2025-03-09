@@ -1,197 +1,176 @@
-/* Styles globaux pour la page d'inscription */
+/* 🌟 Global Styles for the Registration Page */
 body {
-  font-family: Arial, sans-serif;
-  background: linear-gradient(to right, #6a11cb, #2575fc);
+  font-family: "Poppins", sans-serif;
+  background: linear-gradient(135deg, #1e3c72, #2a5298);
   display: flex;
   justify-content: center;
   align-items: center;
-  min-height: 100vh;
+  height: 100vh;
   margin: 0;
   overflow: hidden;
   position: relative;
+  color: white;
 }
 
-/* Animation de fond */
+/* 🌟 Animated Background */
 body::before {
   content: "";
   position: absolute;
-  top: -50%;
-  left: -50%;
-  width: 200%;
-  height: 200%;
-  background: linear-gradient(to right, rgba(255, 255, 255, 0.1), rgba(255, 255, 255, 0.05));
-  animation: rotateBackground 20s linear infinite;
+  width: 100%;
+  height: 100%;
+  background: radial-gradient(circle, rgba(255, 255, 255, 0.2), rgba(0, 0, 0, 0));
+  animation: moveBackground 10s infinite alternate;
   z-index: -1;
 }
 
-@keyframes rotateBackground {
+@keyframes moveBackground {
   from {
-    transform: rotate(0deg);
+    transform: scale(1);
+    opacity: 0.5;
   }
   to {
-    transform: rotate(360deg);
+    transform: scale(1.2);
+    opacity: 1;
   }
 }
 
-/* Conteneur principal */
+/* 🌟 Glassmorphism Container */
 .register-container {
-  background: rgba(255, 255, 255, 0.1);
-  backdrop-filter: blur(10px);
-  border: 1px solid rgba(255, 255, 255, 0.2);
-  padding: 2rem;
-  border-radius: 15px;
-  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
+  background: rgba(255, 255, 255, 0.15);
+  backdrop-filter: blur(15px);
+  border-radius: 20px;
+  border: 2px solid rgba(255, 255, 255, 0.2);
+  padding: 3rem;
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
   width: 100%;
-  max-width: 500px;
+  max-width: 420px;
   text-align: center;
-  transform: scale(0.95);
-  transition: transform 0.3s ease, box-shadow 0.3s ease;
+  transition: transform 0.3s ease-in-out;
 }
 
 .register-container:hover {
-  transform: scale(1);
-  box-shadow: 0 15px 40px rgba(0, 0, 0, 0.3);
+  transform: scale(1.02);
 }
 
-/* Titre */
+/* 🌟 Title */
 .register-title {
-  font-size: 2rem;
-  font-weight: bold;
+  font-size: 2.2rem;
+  font-weight: 600;
   margin-bottom: 1.5rem;
-  color: white;
-  animation: fadeIn 1s ease-in-out;
+  color: #fff;
 }
 
-@keyframes fadeIn {
-  from {
-    opacity: 0;
-    transform: translateY(-20px);
-  }
-  to {
-    opacity: 1;
-    transform: translateY(0);
-  }
-}
-
-/* Champs de saisie */
+/* 🌟 Input Fields */
 .input-group {
   position: relative;
-  margin-bottom: 1rem;
+  margin-bottom: 1.5rem;
 }
 
 .input-group input,
 .input-group select {
   width: 100%;
-  padding: 12px 12px 12px 40px;
-  border: 1px solid rgba(255, 255, 255, 0.3);
-  border-radius: 5px;
+  padding: 14px;
+  border: none;
+  border-radius: 30px;
   font-size: 1rem;
-  background: rgba(255, 255, 255, 0.1);
+  background: rgba(255, 255, 255, 0.3);
   color: white;
-  transition: border-color 0.3s ease, box-shadow 0.3s ease;
+  transition: 0.3s;
+  outline: none;
+  box-shadow: inset 0 5px 10px rgba(0, 0, 0, 0.2);
+}
+
+.input-group input::placeholder {
+  color: rgba(255, 255, 255, 0.7);
 }
 
 .input-group input:focus,
 .input-group select:focus {
-  border-color: #6a11cb;
-  outline: none;
-  box-shadow: 0 0 10px rgba(106, 17, 203, 0.3);
+  background: rgba(255, 255, 255, 0.5);
+  box-shadow: 0 0 12px rgba(255, 255, 255, 0.5);
 }
 
-.input-group .icon {
+/* 🌟 Floating Labels */
+.input-group label {
   position: absolute;
-  left: 10px;
+  left: 15px;
   top: 50%;
   transform: translateY(-50%);
+  font-size: 0.9rem;
   color: rgba(255, 255, 255, 0.7);
+  transition: 0.3s;
+  pointer-events: none;
 }
 
-/* Bouton d'inscription */
+.input-group input:focus + label,
+.input-group input:not(:placeholder-shown) + label {
+  top: 10px;
+  font-size: 0.75rem;
+  color: #fff;
+}
+
+/* 🌟 Advanced Button */
 .register-button {
   width: 100%;
-  background: linear-gradient(to right, #6a11cb, #2575fc);
+  background: linear-gradient(135deg, #ff9a9e, #fad0c4);
   color: white;
-  padding: 12px;
+  padding: 14px;
   border: none;
-  border-radius: 5px;
-  font-size: 1rem;
+  border-radius: 30px;
+  font-size: 1.2rem;
+  font-weight: bold;
   cursor: pointer;
-  transition: background 0.3s ease, transform 0.2s ease;
+  transition: 0.3s;
+  box-shadow: 0 5px 15px rgba(255, 107, 129, 0.4);
 }
 
 .register-button:hover {
-  background: linear-gradient(to right, #5a0fb3, #1f66d1);
-  transform: translateY(-2px);
+  background: linear-gradient(135deg, #ff758c, #ff7eb3);
+  transform: translateY(-3px);
 }
 
 .register-button:active {
   transform: translateY(0);
+  box-shadow: 0 2px 10px rgba(255, 107, 129, 0.4);
 }
 
-.register-button:disabled {
-  background-color: #94a3b8;
-  cursor: not-allowed;
-}
-
-/* Lien de connexion */
+/* 🌟 Login Link */
 .login-link {
-  margin-top: 1rem;
-  font-size: 0.9rem;
-  text-align: center;
-  color: rgba(255, 255, 255, 0.8);
-  animation: fadeIn 2s ease-in-out;
+  margin-top: 1.5rem;
+  font-size: 1rem;
+  color: rgba(255, 255, 255, 0.85);
 }
 
 .login-link a {
-  color: #6a11cb;
+  color: #ffdd57;
   text-decoration: none;
+  font-weight: bold;
   transition: color 0.3s ease;
 }
 
 .login-link a:hover {
-  color: #2575fc;
-  text-decoration: underline;
+  color: #ffea85;
 }
 
-/* Message d'erreur */
+/* 🌟 Error Message */
 .error-message {
-  color: #dc2626;
-  font-size: 0.9rem;
+  color: #ff4d4d;
+  font-size: 1rem;
   margin-bottom: 1rem;
   text-align: center;
-  animation: shake 0.5s ease-in-out;
 }
 
-@keyframes shake {
-  0%, 100% {
-    transform: translateX(0);
+/* 🌟 Responsive Design */
+@media (max-width: 480px) {
+  .register-container {
+    padding: 2rem;
   }
-  25% {
-    transform: translateX(-10px);
-  }
-  50% {
-    transform: translateX(10px);
-  }
-  75% {
-    transform: translateX(-10px);
-  }
-}
 
-/* Spinner de chargement */
-.spinner {
-  border: 4px solid rgba(255, 255, 255, 0.3);
-  border-top: 4px solid #6a11cb;
-  border-radius: 50%;
-  width: 20px;
-  height: 20px;
-  animation: spin 1s linear infinite;
-}
-
-@keyframes spin {
-  0% {
-    transform: rotate(0deg);
+  .register-title {
+    font-size: 2rem;
   }
-  100% {
-    transform: rotate(360deg);
+
+  .register-button {
+    font-size: 1rem;
   }
 }

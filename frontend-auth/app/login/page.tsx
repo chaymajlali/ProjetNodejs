@@ -1,5 +1,4 @@
 "use client";
-import './login.css';
 import { useState } from "react";
 import { useRouter } from "next/navigation";
 
@@ -40,47 +39,48 @@ export default function Login() {
   };
 
   return (
-    <div className="min-h-screen flex items-center justify-center">
-      <div className="login-container">
-        <h1 className="login-title">Connexion</h1>
+    <div className="min-h-screen flex items-center justify-center bg-gradient-to-br from-blue-900 to-purple-800 text-white p-6">
+      <div className="bg-white bg-opacity-10 backdrop-blur-lg p-8 rounded-xl shadow-lg max-w-md w-full">
+        <h1 className="text-3xl font-bold text-center mb-6">Connexion</h1>
 
-        {error && <p className="error-message">{error}</p>}
+        {error && <p className="text-red-400 text-center mb-4">{error}</p>}
 
-        <form onSubmit={handleSubmit}>
+        <form onSubmit={handleSubmit} className="space-y-4">
           <div className="input-group">
-            <span className="icon">📧</span>
-            <input
+          <input
               type="email"
               value={email}
               onChange={(e) => setEmail(e.target.value)}
               placeholder="Email"
+              className="w-full p-3 rounded-lg bg-white bg-opacity-20 placeholder-gray-400 text-black focus:ring-2 focus:ring-blue-400 outline-none"
               required
             />
+
           </div>
 
           <div className="input-group">
-            <span className="icon">🔒</span>
             <input
               type="password"
               value={password}
               onChange={(e) => setPassword(e.target.value)}
               placeholder="Mot de passe"
+              className="w-full p-3 rounded-lg bg-white bg-opacity-20 placeholder-gray-400 text-black focus:ring-2 focus:ring-blue-400 outline-none"
               required
             />
           </div>
 
           <button
             type="submit"
-            className="login-button"
+            className="w-full bg-gradient-to-r from-pink-500 to-red-400 p-3 rounded-lg font-bold text-white transition-transform transform hover:scale-105"
             disabled={loading}
           >
             {loading ? <div className="spinner"></div> : "Se connecter"}
           </button>
         </form>
 
-        <p className="register-link">
+        <p className="mt-4 text-center">
           Pas encore de compte ?{" "}
-          <a href="/register" className="text-blue-500 hover:underline">
+          <a href="/register" className="text-yellow-400 hover:text-yellow-300">
             Inscrivez-vous ici
           </a>
         </p>

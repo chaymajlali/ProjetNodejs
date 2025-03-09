@@ -16,7 +16,7 @@ export default function Login() {
     setError("");
 
     try {
-      const response = await fetch("http://localhost:7000/api/auth/login", {
+      const response = await fetch("http://localhost:8000/api/auth/login", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({ email, password }),
@@ -84,6 +84,12 @@ export default function Login() {
             Inscrivez-vous ici
           </a>
         </p>
+      </div>
+
+      {/* Section pour l'image et la citation */}
+      <div className="image-container">
+        <img src="/images/doctor.jpg" alt="Doctor" /> {/* Remplacez par le chemin de votre image */}
+        <p className="quote">"La santé est le plus grand des trésors." </p>
       </div>
     </div>
   );

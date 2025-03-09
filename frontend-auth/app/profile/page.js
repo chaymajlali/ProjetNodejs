@@ -23,10 +23,6 @@ export default function Profile() {
           <p>
             <strong>Nom :</strong> {user.nom}
           </p>
-<<<<<<< HEAD
-=======
-         
->>>>>>> 29094fddcf6be8efb8d3d3947a205c5e8bfd5e42
           <p>
             <strong>Email :</strong> {user.email}
           </p>

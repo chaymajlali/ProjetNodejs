@@ -11,16 +11,13 @@ export default function Home() {
         <div className={styles.navContainer}>
           <h1 className={styles.navLogo}>Cabinet Dentaire</h1>
           <ul className={styles.navLinks}>
-<<<<<<< HEAD
-            <li><a href="#contact" className={styles.navLink}>Contact Us</a></li>
-            <li><a href="/login" className={styles.navLink}>Sign In</a></li>
-            <li><a href="/register" className={styles.navLink}>Sign Up</a></li>
-            <li><a href="#other" className={styles.navLink}>Other</a></li>
-=======
+
+            
+
             <li><Link href="#contact" className={styles.navLink}>Contact</Link></li>
             <li><Link href="/login" className={styles.navLink}>Se connecter</Link></li>
             <li><Link href="/register" className={styles.navLink}>S'inscrire</Link></li>
->>>>>>> 29094fddcf6be8efb8d3d3947a205c5e8bfd5e42
+
           </ul>
         </div>
       </nav>

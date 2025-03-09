@@ -1,7 +1,7 @@
-/* Styles globaux pour la page d'inscription et connexion */
+/* Styles globaux pour la page de connexion */
 body {
   font-family: 'Poppins', sans-serif;
-  background: linear-gradient(135deg, #2b5876, #4e4376);
+  background: linear-gradient(135deg, #1e3c72, #2a5298);
   display: flex;
   justify-content: center;
   align-items: center;
@@ -10,6 +10,20 @@ body {
   overflow: hidden;
   position: relative;
   color: white;
+  animation: gradientAnimation 10s ease infinite;
+}
+
+/* Animation du dégradé d'arrière-plan */
+@keyframes gradientAnimation {
+  0% {
+    background: linear-gradient(135deg, #1e3c72, #2a5298);
+  }
+  50% {
+    background: linear-gradient(135deg, #2a5298, #1e3c72);
+  }
+  100% {
+    background: linear-gradient(135deg, #1e3c72, #2a5298);
+  }
 }
 
 /* Animation de fond */
@@ -35,29 +49,30 @@ body::before {
 }
 
 /* Conteneur principal */
-.register-container, .login-container {
+.login-container {
   background: rgba(255, 255, 255, 0.1);
   backdrop-filter: blur(20px);
   border: 2px solid rgba(255, 255, 255, 0.2);
-  padding: 3rem;
-  border-radius: 20px;
-  box-shadow: 0 15px 45px rgba(0, 0, 0, 0.4);
+  padding: 2.5rem;
+  border-radius: 15px;
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
   width: 100%;
   max-width: 400px;
   text-align: center;
   transition: transform 0.3s ease-in-out, box-shadow 0.3s ease-in-out;
+  margin-right: 2rem; /* Espace entre le formulaire et l'image */
 }
 
-.register-container:hover, .login-container:hover {
-  transform: scale(1.05);
-  box-shadow: 0 20px 50px rgba(0, 0, 0, 0.5);
+.login-container:hover {
+  transform: scale(1.03);
+  box-shadow: 0 15px 40px rgba(0, 0, 0, 0.4);
 }
 
 /* Titre */
-.register-title, .login-title {
-  font-size: 2.4rem;
+.login-title {
+  font-size: 2rem;
   font-weight: 600;
-  margin-bottom: 2rem;
+  margin-bottom: 1.5rem;
   color: #fff;
 }
 
@@ -67,70 +82,79 @@ body::before {
   margin-bottom: 1.5rem;
 }
 
-.input-group input,
-.input-group select {
+.input-group input {
   width: 100%;
-  padding: 15px;
+  padding: 12px;
+  padding-left: 45px; /* Ajoutez de l'espace pour l'icône */
   border: none;
-  border-radius: 25px;
+  border-radius: 20px;
   font-size: 1rem;
   background: rgba(255, 255, 255, 0.2);
   color: white;
   transition: all 0.3s ease-in-out;
 }
 
-.input-group input:focus,
-.input-group select:focus {
+.input-group input:focus {
   background: rgba(255, 255, 255, 0.3);
   outline: none;
-  box-shadow: 0 0 15px rgba(255, 255, 255, 0.3);
+  box-shadow: 0 0 10px rgba(255, 255, 255, 0.3);
+}
+
+/* Styles pour les icônes ou images */
+.icon {
+  position: absolute;
+  left: 15px;
+  top: 50%;
+  transform: translateY(-50%);
+  color: rgba(255, 255, 255, 0.7);
+  font-size: 1.2rem;
 }
 
 /* Boutons */
-.register-button, .login-button {
+.login-button {
   width: 100%;
   background: linear-gradient(to right, #6a11cb, #2575fc);
   color: white;
-  padding: 15px;
+  padding: 12px;
   border: none;
-  border-radius: 30px;
-  font-size: 1.2rem;
+  border-radius: 25px;
+  font-size: 1.1rem;
   font-weight: bold;
   cursor: pointer;
   transition: all 0.3s ease-in-out;
 }
 
-.register-button:hover, .login-button:hover {
+.login-button:hover {
   background: linear-gradient(to right, #5a0fb3, #1f66d1);
-  transform: translateY(-3px);
+  transform: translateY(-2px);
 }
 
-.register-button:active, .login-button:active {
+.login-button:active {
   transform: translateY(0);
 }
 
 /* Lien de connexion et inscription */
-.login-link, .register-link {
+.register-link {
   margin-top: 1.5rem;
-  font-size: 1rem;
+  font-size: 0.9rem;
   color: rgba(255, 255, 255, 0.85);
 }
 
-.login-link a, .register-link a {
+.register-link a {
   color: #ffdd57;
   text-decoration: none;
   font-weight: bold;
   transition: color 0.3s ease;
 }
 
-.login-link a:hover, .register-link a:hover {
+.register-link a:hover {
   color: #ffea85;
 }
 
 /* Message d'erreur */
 .error-message {
   color: #dc2626;
-  font-size: 1rem;
+  font-size: 0.9rem;
   margin-bottom: 1rem;
   text-align: center;
   animation: shake 0.5s ease-in-out;
@@ -148,5 +172,51 @@ body::before {
   }
   75% {
     transform: translateX(-10px);
+  }
+}
+
+/* Section pour l'image et la citation */
+.image-container {
+  flex: 1;
+  max-width: 400px; /* Même largeur que le formulaire */
+  height: 100%; /* Même hauteur que le formulaire */
+  position: relative;
+  overflow: hidden;
+  border-radius: 15px;
+}
+
+.doctor-image {
+  width: 100%;
+  height: 100%;
+  object-fit: cover; /* Pour que l'image couvre tout le conteneur */
+  border-radius: 15px;
+  transition: transform 0.5s ease-in-out;
+}
+
+.image-container:hover .doctor-image {
+  transform: scale(1.1);
+}
+
+.quote {
+  position: absolute;
+  bottom: 20px;
+  left: 20px;
+  right: 20px;
+  background: rgba(0, 0, 0, 0.7);
+  padding: 10px;
+  border-radius: 10px;
+  font-size: 1.2rem;
+  font-style: italic;
+  color: white;
+  text-align: center;
+  animation: fadeIn 2s ease-in-out;
+}
+
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
   }
 }

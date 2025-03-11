@@ -27,17 +27,47 @@ export default function EditUser() {
     };
 
     const handleChange = (e: React.ChangeEvent<HTMLInputElement | HTMLSelectElement>) => {
-        setEditedData({ ...editedData, [e.target.name]: e.target.value });
+        const { name, value } = e.target;
+    
+        setEditedData(prev => {
+            let updatedData = { ...prev, [name]: name === "tarif" ? Number(value) : value };
+    
+            // 🔹 Reset fields based on role change
+            if (name === "role") {
+                if (value === "doctor") {
+                    updatedData = { ...updatedData, telephone: "", adresse: "", specialite: "", tarif: 0 };
+                } else if (value === "patient") {
+                    updatedData = { ...updatedData, specialite: "", tarif: 0, telephone: "", adresse: "" };
+                }
+            }
+    
+            return updatedData;
+        });
     };
+    
+    
+    
+    
 
     const handleSave = async () => {
         if (user && editedData) {
             try {
-                await updateUser(user._id, editedData);  // Update user
-                // Refetch the updated data after saving
+                await updateUser(user._id, {
+                    nom: editedData.nom,
+                    email: editedData.email,
+                    role: editedData.role,  // 🔹 Ensure role is sent
+                    telephone: editedData.telephone,  // 🔹 Ensure phone is sent
+                    specialite: editedData.specialite,
+                    tarif: editedData.tarif,
+                    adresse: editedData.adresse
+                });
+    
+                // Fetch the updated user from the backend
                 const updatedUser = await getUserById(user._id);
-                setUser(updatedUser.data);  // Update the user state with the updated data
-                router.push("/users");  // Redirect after update
+                setUser(updatedUser.data);  
+    
+                // Redirect after successful update
+                router.push("/users");
             } catch (error) {
                 console.error("Error updating user:", error);
             }
@@ -56,130 +86,130 @@ export default function EditUser() {
                 <h1 className="text-3xl font-bold text-center text-gray-800 mb-8">Edit User</h1>
 
                 <div className="space-y-6">
+    {/* Name Input */}
+    <div>
+        <label className="block text-lg font-medium text-black mb-2" htmlFor="name">
+            Name
+        </label>
+        <input
+            type="text"
+            name="nom"
+            value={editedData.nom || ""}
+            onChange={handleChange}
+            className="w-full p-4 rounded-lg border-2 border-gray-300 bg-gray-50 text-black focus:ring-2 focus:ring-blue-500"
+        />
+    </div>
 
-                    {/* Name Input */}
-                    <div>
-                        <label className="block text-lg font-medium text-black mb-2" htmlFor="name">
-                            Name
-                        </label>
-                        <input
-                            type="text"
-                            name="nom"
-                            value={editedData.nom || ""}
-                            onChange={handleChange}
-                            className="w-full p-4 rounded-lg border-2 border-gray-300 bg-gray-50 text-black focus:outline-none focus:ring-2 focus:ring-blue-500"
-                        />
-                    </div>
+    {/* Email Input */}
+    <div>
+        <label className="block text-lg font-medium text-black mb-2" htmlFor="email">
+            Email
+        </label>
+        <input
+            type="email"
+            name="email"
+            value={editedData.email || ""}
+            onChange={handleChange}
+            className="w-full p-4 rounded-lg border-2 border-gray-300 bg-gray-50 text-black focus:ring-2 focus:ring-blue-500"
+        />
+    </div>
 
-                    {/* Email Input */}
-                    <div>
-                        <label className="block text-lg font-medium text-black mb-2" htmlFor="email">
-                            Email
-                        </label>
-                        <input
-                            type="email"
-                            name="email"
-                            value={editedData.email || ""}
-                            onChange={handleChange}
-                            className="w-full p-4 rounded-lg border-2 border-gray-300 bg-gray-50 text-black focus:outline-none focus:ring-2 focus:ring-blue-500"
-                        />
-                    </div>
+    {/* Role Selection */}
+    <div>
+        <label className="block text-lg font-medium text-black mb-2" htmlFor="role">
+            Role
+        </label>
+        <select
+            name="role"
+            value={editedData.role || ""}
+            onChange={handleChange}
+            className="w-full p-4 rounded-lg border-2 border-gray-300 bg-gray-50 text-black focus:ring-2 focus:ring-blue-500"
+        >
+            <option value="admin">Admin</option>
+            <option value="doctor">Doctor</option>
+            <option value="patient">Patient</option>
+        </select>
+    </div>
 
-                    {/* Role Input (select dropdown) */}
-                    <div>
-                        <label className="block text-lg font-medium text-black mb-2" htmlFor="role">
-                            Role
-                        </label>
-                        <select
-                            name="role"
-                            value={editedData.role || ""}
-                            onChange={handleChange}
-                            className="w-full p-4 rounded-lg border-2 border-gray-300 bg-gray-50 text-black focus:outline-none focus:ring-2 focus:ring-blue-500"
-                        >
-                            <option value="admin">Admin</option>
-                            <option value="doctor">Doctor</option>
-                            <option value="patient">Patient</option>
-                        </select>
-                    </div>
+    {/* Dynamic Doctor Fields */}
+    {editedData.role === "doctor" && (
+        <>
+            <div>
+                <label className="block text-lg font-medium text-black mb-2" htmlFor="specialite">
+                    Specialty
+                </label>
+                <input
+                    type="text"
+                    name="specialite"
+                    value={editedData.specialite || ""}
+                    onChange={handleChange}
+                    className="w-full p-4 rounded-lg border-2 border-gray-300 bg-gray-50 text-black focus:ring-2 focus:ring-blue-500"
+                />
+            </div>
 
-                    {/* Doctor Specific Inputs */}
-                    {isDoctor && (
-                        <>
-                            <div>
-                                <label className="block text-lg font-medium text-black mb-2" htmlFor="specialite">
-                                    Specialty
-                                </label>
-                                <input
-                                    type="text"
-                                    name="specialite"
-                                    value={editedData.specialite || ""}
-                                    onChange={handleChange}
-                                    className="w-full p-4 rounded-lg border-2 border-gray-300 bg-gray-50 text-black focus:outline-none focus:ring-2 focus:ring-blue-500"
-                                />
-                            </div>
+            <div>
+                <label className="block text-lg font-medium text-black mb-2" htmlFor="tarif">
+                    Rate
+                </label>
+                <input
+                    type="number"
+                    name="tarif"
+                    value={editedData.tarif || ""}
+                    onChange={handleChange}
+                    className="w-full p-4 rounded-lg border-2 border-gray-300 bg-gray-50 text-black focus:ring-2 focus:ring-blue-500"
+                />
+            </div>
+        </>
+    )}
 
-                            <div>
-                                <label className="block text-lg font-medium text-black mb-2" htmlFor="tarif">
-                                    Rate
-                                </label>
-                                <input
-                                    type="text"
-                                    name="tarif"
-                                    value={editedData.tarif || ""}
-                                    onChange={handleChange}
-                                    className="w-full p-4 rounded-lg border-2 border-gray-300 bg-gray-50 text-black focus:outline-none focus:ring-2 focus:ring-blue-500"
-                                />
-                            </div>
-                        </>
-                    )}
+    {/* Dynamic Patient Fields */}
+    {editedData.role === "patient" && (
+        <>
+            <div>
+                <label className="block text-lg font-medium text-black mb-2" htmlFor="telephone">
+                    Phone
+                </label>
+                <input
+                    type="text"
+                    name="telephone"
+                    value={editedData.telephone || ""}
+                    onChange={handleChange}
+                    className="w-full p-4 rounded-lg border-2 border-gray-300 bg-gray-50 text-black focus:ring-2 focus:ring-blue-500"
+                />
+            </div>
 
-                    {/* Patient Specific Inputs */}
-                    {isPatient && (
-                        <>
-                            <div>
-                                <label className="block text-lg font-medium text-black mb-2" htmlFor="telephone">
-                                    Phone
-                                </label>
-                                <input
-                                    type="text"
-                                    name="telephone"
-                                    value={editedData.telephone || ""}
-                                    onChange={handleChange}
-                                    className="w-full p-4 rounded-lg border-2 border-gray-300 bg-gray-50 text-black focus:outline-none focus:ring-2 focus:ring-blue-500"
-                                />
-                            </div>
+            <div>
+                <label className="block text-lg font-medium text-black mb-2" htmlFor="adresse">
+                    Address
+                </label>
+                <input
+                    type="text"
+                    name="adresse"
+                    value={editedData.adresse || ""}
+                    onChange={handleChange}
+                    className="w-full p-4 rounded-lg border-2 border-gray-300 bg-gray-50 text-black focus:ring-2 focus:ring-blue-500"
+                />
+            </div>
+        </>
+    )}
 
-                            <div>
-                                <label className="block text-lg font-medium text-black mb-2" htmlFor="adresse">
-                                    Address
-                                </label>
-                                <input
-                                    type="text"
-                                    name="adresse"
-                                    value={editedData.adresse || ""}
-                                    onChange={handleChange}
-                                    className="w-full p-4 rounded-lg border-2 border-gray-300 bg-gray-50 text-black focus:outline-none focus:ring-2 focus:ring-blue-500"
-                                />
-                            </div>
-                        </>
-                    )}
+    {/* Action Buttons */}
+    <div className="flex justify-center space-x-4 mt-6">
+        <button
+            onClick={handleSave}
+            className="px-6 py-3 bg-blue-500 text-white rounded-lg font-semibold hover:bg-blue-600 transition-colors w-full sm:w-auto"
+        >
+            Save Changes
+        </button>
+        <button
+            onClick={() => router.push("/users")}
+            className="px-6 py-3 bg-gray-500 text-white rounded-lg font-semibold hover:bg-gray-600 transition-colors w-full sm:w-auto"
+        >
+            Cancel
+        </button>
+    </div>
+</div>
 
-                    {/* Action Buttons */}
-                    <div className="flex justify-end space-x-4">
-                        <button
-                            onClick={handleSave}
-                            className="px-6 py-3 bg-blue-500 text-white rounded-lg font-semibold hover:bg-blue-600 transition-colors w-full sm:w-auto"
-                        >
-                            Save Changes
-                        </button>
-                        <button
-                            onClick={() => router.push("/users")}
-                            className="px-6 py-3 bg-gray-500 text-white rounded-lg font-semibold hover:bg-gray-600 transition-colors w-full sm:w-auto"
-                        >
-                            Cancel
-                        </button>
-                    </div>
-                </div>
             </div>
         </div>
     );

@@ -78,15 +78,17 @@ exports.getUserById = async (req, res) => {
     try {
         const id = req.params.id;
         const newData = req.body;
-    
-        const updatedUser = await User.findByIdAndUpdate(id, newData, { new: true });
-    
+
+        // 🔹 Ensure that only provided fields are updated
+        const updatedUser = await User.findByIdAndUpdate(id, { $set: newData }, { new: true, runValidators: true });
+
         if (!updatedUser) {
-          return res.status(404).json({ message: 'User not found' });
+            return res.status(404).json({ message: 'User not found' });
         }
-    
+
         res.status(200).json(updatedUser);
-      } catch (error) {
+    } catch (error) {
+        console.error("Update Error:", error);
         res.status(500).json({ error: error.message });
-      }
-  };
+    }
+};

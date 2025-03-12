@@ -8,8 +8,34 @@ import timeGridPlugin from "@fullcalendar/timegrid";
 import interactionPlugin from "@fullcalendar/interaction";
 import { DateSelectArg, EventClickArg } from "@fullcalendar/core";
 
-import { Dialog, DialogContent, DialogTitle } from "../components/ui/dialog";
+// Composant Dialog personnalisé
+interface DialogProps {
+  open: boolean;
+  onOpenChange: (open: boolean) => void;
+  children: React.ReactNode;
+}
 
+const Dialog: React.FC<DialogProps> = ({ open, onOpenChange, children }) => {
+  if (!open) return null;
+
+  return (
+    <div className="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center">
+      <div className="bg-white rounded-lg shadow-lg w-full max-w-md">
+        {children}
+      </div>
+    </div>
+  );
+};
+
+const DialogContent: React.FC<{ children: React.ReactNode }> = ({ children }) => (
+  <div className="p-4">{children}</div>
+);
+
+const DialogTitle: React.FC<{ children: React.ReactNode }> = ({ children }) => (
+  <h2 className="text-xl font-semibold text-blue-800">{children}</h2>
+);
+
+// Composant principal Calendar
 const Calendar = () => {
   const [currentEvents, setCurrentEvents] = useState<any[]>([]);
   const [isDialogOpen, setIsDialogOpen] = useState<boolean>(false);
@@ -143,20 +169,16 @@ const Calendar = () => {
             onClick={() => setIsDialogOpen(true)}
             className="mt-6 w-full bg-blue-500 text-white p-3 rounded-lg hover:bg-blue-600 transition-colors"
           >
-            Add an event
+            Add an appointment
           </button>
         </div>
       </div>
 
       {/* Boîte de dialogue pour ajouter un événement */}
       <Dialog open={isDialogOpen} onOpenChange={setIsDialogOpen}>
-        <DialogContent className="bg-white rounded-lg shadow-lg">
-          <div className="p-4 border-b">
-            <DialogTitle className="text-xl font-semibold text-blue-800">
-              Add a new event
-            </DialogTitle>
-          </div>
-          <form onSubmit={handleAddEvent} className="space-y-4 p-4">
+        <DialogContent>
+          <DialogTitle>Add a new event</DialogTitle>
+          <form onSubmit={handleAddEvent} className="space-y-4">
             <input
               type="text"
               placeholder="Title of event"

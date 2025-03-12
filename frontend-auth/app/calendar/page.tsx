@@ -3,7 +3,8 @@ import Calendar from "../../components/Calendar";
 export default function Home() {
   return (
     <main>
-      <h1 >Calendrier des Rendez-vous</h1>
+      <h1 ><center>Appointment Calendar</center>
+      </h1>
       <Calendar />
     </main>
   );

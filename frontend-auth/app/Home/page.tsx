@@ -13,8 +13,6 @@ export default function Home() {
           <ul className={styles.navLinks}>
 
             
-
-            <li><Link href="#contact" className={styles.navLink}>Contact</Link></li>
             <li><Link href="/login" className={styles.navLink}>Se connecter</Link></li>
             <li><Link href="/register" className={styles.navLink}>S'inscrire</Link></li>
 

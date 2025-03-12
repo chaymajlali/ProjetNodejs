@@ -51,7 +51,7 @@ export default function Users() {
                     <ul className="flex space-x-6">
                         <li><a href="/Home" className="text-white hover:text-yellow-400">Home</a></li>
                         <li><a href="/users" className="text-white hover:text-yellow-400">Users</a></li>
-                        <li><a href="/contact" className="text-white hover:text-yellow-400">Contact</a></li>
+                        <li><a href="/calendar" className="text-white hover:text-yellow-400">Calendar</a></li>
                     </ul>
                 </div>
             </nav>

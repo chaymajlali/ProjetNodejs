@@ -27,7 +27,7 @@ export default function Login() {
         localStorage.setItem("token", data.token);
         localStorage.setItem("user", JSON.stringify(data.user));
         console.log("✅ Connexion réussie :", data.user);
-        router.push("/profile");
+        router.push("/users");
       } else {
         setError(data.message || "Identifiants incorrects");
       }

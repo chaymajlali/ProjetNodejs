@@ -18,6 +18,7 @@ app.use(bodyParser.json());
 app.use('/api/auth', authRouters);
 app.use('/api/user', userRouters);
 
+
 // Connexion à MongoDB
 mongoose.connect(process.env.MONGO_URI)
     .then(() => {

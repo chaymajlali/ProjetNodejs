@@ -8,7 +8,7 @@ import timeGridPlugin from "@fullcalendar/timegrid";
 import interactionPlugin from "@fullcalendar/interaction";
 import { DateSelectArg, EventClickArg } from "@fullcalendar/core";
 
-// Composant Dialog personnalisé
+// Dialog component
 interface DialogProps {
   open: boolean;
   onOpenChange: (open: boolean) => void;
@@ -35,14 +35,12 @@ const DialogTitle: React.FC<{ children: React.ReactNode }> = ({ children }) => (
   <h2 className="text-xl font-semibold text-blue-800">{children}</h2>
 );
 
-// Composant principal Calendar
 const Calendar = () => {
   const [currentEvents, setCurrentEvents] = useState<any[]>([]);
   const [isDialogOpen, setIsDialogOpen] = useState<boolean>(false);
   const [newEventTitle, setNewEventTitle] = useState<string>("");
   const [selectedDate, setSelectedDate] = useState<DateSelectArg | null>(null);
 
-  // Charger les événements depuis localStorage
   useEffect(() => {
     const savedEvents = localStorage.getItem("events");
     if (savedEvents) {
@@ -55,77 +53,101 @@ const Calendar = () => {
     }
   }, []);
 
-  // Sauvegarder les événements dans localStorage
   useEffect(() => {
     localStorage.setItem("events", JSON.stringify(currentEvents));
   }, [currentEvents]);
 
-  // Gérer le clic sur une date du calendrier
   const handleDateClick = (selected: DateSelectArg) => {
     setSelectedDate(selected);
     setIsDialogOpen(true);
   };
 
-  // Fermer la boîte de dialogue
   const handleCloseDialog = () => {
     setIsDialogOpen(false);
     setNewEventTitle("");
   };
 
-  // Ajouter un événement
-  const handleAddEvent = (e: React.FormEvent) => {
+  const handleAddEvent = async (e: React.FormEvent) => {
     e.preventDefault();
     if (newEventTitle && selectedDate) {
       const newEvent = {
         id: `${selectedDate.start.toISOString()}-${newEventTitle}`,
         title: newEventTitle,
         start: selectedDate.start,
-        end: selectedDate.end,
+        end: selectedDate.end || selectedDate.start,
         allDay: selectedDate.allDay,
       };
 
-      // Mettre à jour les événements
       setCurrentEvents((prevEvents) => [...prevEvents, newEvent]);
 
-      // Fermer la boîte de dialogue
+      try {
+        await fetch("http://localhost:7000/api/email/sendemail", {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json",
+          },
+          body: JSON.stringify({
+            to: "mhatli.chaima94@gmail.com",
+            subject: `New Appointment: ${newEventTitle}`,
+            message: `You have a new appointment scheduled on ${formatDate(newEvent.start, {
+              year: "numeric",
+              month: "long",
+              day: "numeric",
+            })}.`,
+          }),
+        });
+        console.log("📩 Email sent successfully!");
+      } catch (error) {
+        console.error("❌ Error sending email:", error);
+      }
+
       handleCloseDialog();
     }
   };
 
-  // Supprimer un événement
-  const handleEventClick = (selected: EventClickArg) => {
-    if (
-      window.confirm(
-        `Êtes-vous sûr de vouloir supprimer l'événement "${selected.event.title}" ?`
-      )
-    ) {
-      setCurrentEvents((prevEvents) =>
-        prevEvents.filter((event) => event.id !== selected.event.id)
-      );
-    }
-  };
+  const handleEventClick = async (selected: EventClickArg) => {
+    if (window.confirm(`Êtes-vous sûr de vouloir supprimer l'événement "${selected.event.title}" ?`)) {
+      const eventToDelete = selected.event;
 
-  // Fonction pour personnaliser l'affichage des événements dans chaque case
-  const eventContent = (eventInfo: any) => {
-    return (
-      <div className="fc-event-main">
-        <p>{eventInfo.event.title}</p>
-      </div>
-    );
+      // Remove the event from the list
+      setCurrentEvents((prevEvents) =>
+        prevEvents.filter((event) => event.id !== eventToDelete.id)
+      );
+
+      try {
+        await fetch("http://localhost:7000/api/email/sendemail", {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json",
+          },
+          body: JSON.stringify({
+            to: "mhatli.chaima94@gmail.com",
+            subject: `Event Deleted: ${eventToDelete.title}`,
+            message: `The event "${eventToDelete.title}" scheduled on ${formatDate(eventToDelete.start, {
+              year: "numeric",
+              month: "long",
+              day: "numeric",
+            })} has been deleted.`,
+          }),
+        });
+        console.log("📩 Email sent successfully for deleted event!");
+      } catch (error) {
+        console.error("❌ Error sending email for event deletion:", error);
+      }
+    }
   };
 
   return (
     <div className="min-h-screen bg-gray-100 p-8">
       <div className="grid grid-cols-1 lg:grid-cols-12 gap-8">
-        {/* Calendrier */}
         <div className="lg:col-span-5 bg-white p-6 rounded-lg shadow-md">
           <FullCalendar
             height="70vh"
-            plugins={[dayGridPlugin, timeGridPlugin, interactionPlugin]}
+            plugins={[dayGridPlugin, interactionPlugin]}
             headerToolbar={{
               left: "prev,next today",
               center: "title",
-              right: "dayGridMonth,timeGridWeek,timeGridDay",
+              right: "dayGridMonth",
             }}
             initialView="dayGridMonth"
             editable={true}
@@ -135,46 +157,28 @@ const Calendar = () => {
             select={handleDateClick}
             eventClick={handleEventClick}
             events={currentEvents}
-            eventContent={eventContent} // Utiliser la fonction de rendu personnalisée
           />
         </div>
 
-        {/* Liste des événements */}
         <div className="lg:col-span-7 bg-white p-6 rounded-lg shadow-md">
-          <h2 className="text-xl font-semibold text-blue-800 mb-4">
-            Upcoming Events
-          </h2>
+          <h2 className="text-xl font-semibold text-blue-800 mb-4">Upcoming Events</h2>
           {currentEvents.length === 0 ? (
             <p className="text-gray-500 italic">No events planned</p>
           ) : (
             <ul className="space-y-3">
               {currentEvents.map((event) => (
-                <li
-                  key={event.id}
-                  className="p-4 bg-blue-50 rounded-lg border border-blue-200"
-                >
+                <li key={event.id} className="p-4 bg-blue-50 rounded-lg border border-blue-200">
                   <p className="font-medium text-blue-800">{event.title}</p>
                   <p className="text-sm text-gray-600">
-                    {formatDate(event.start, {
-                      year: "numeric",
-                      month: "short",
-                      day: "numeric",
-                    })}
+                    {formatDate(event.start, { year: "numeric", month: "short", day: "numeric" })}
                   </p>
                 </li>
               ))}
             </ul>
           )}
-          <button
-            onClick={() => setIsDialogOpen(true)}
-            className="mt-6 w-full bg-blue-500 text-white p-3 rounded-lg hover:bg-blue-600 transition-colors"
-          >
-            Add an appointment
-          </button>
         </div>
       </div>
 
-      {/* Boîte de dialogue pour ajouter un événement */}
       <Dialog open={isDialogOpen} onOpenChange={setIsDialogOpen}>
         <DialogContent>
           <DialogTitle>Add a new event</DialogTitle>
@@ -187,10 +191,7 @@ const Calendar = () => {
               required
               className="w-full p-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500"
             />
-            <button
-              type="submit"
-              className="w-full bg-blue-500 text-white p-3 rounded-lg hover:bg-blue-600 transition-colors"
-            >
+            <button type="submit" className="w-full bg-blue-500 text-white p-3 rounded-lg hover:bg-blue-600 transition-colors">
               Add
             </button>
           </form>

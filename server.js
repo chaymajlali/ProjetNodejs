@@ -17,6 +17,8 @@ app.use(bodyParser.json());
 // Routes
 app.use('/api/auth', authRouters);
 app.use('/api/user', userRouters);
+const emailRoutes = require("./routes/email.routes");
+app.use('/api/email', emailRoutes);
 
 
 // Connexion à MongoDB

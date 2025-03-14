@@ -1,14 +1,13 @@
 const bcrypt = require('bcrypt');
 const jwt = require('jsonwebtoken');
 
-const User = require('../models/user'); // Modèle Parent
-const Doctor = require('../models/docter'); // Modèle Spécifique
-const Patient = require('../models/patient'); // Modèle Spécifique
+const User = require('../models/user');
+const Doctor = require('../models/docter');
+const Patient = require('../models/patient');
 
-// Clé secrète pour signer le token (met-la dans un fichier .env)
+
 const JWT_SECRET = process.env.JWT_SECRET || 'secret_key';
 
-// 📌 **Inscription**
 exports.register = async (req, res) => {
     try {
         const { nom, email, password, role, specialite, tarif, telephone, adresse, image } = req.body;
@@ -38,24 +37,21 @@ exports.register = async (req, res) => {
 };
 
 
-// 📌 **Connexion**
+
 exports.login = async (req, res) => {
     try {
         const { email, password } = req.body;
 
-        // Vérifier si l'utilisateur existe
         const user = await User.findOne({ email });
         if (!user) {
             return res.status(400).json({ message: "Email ou mot de passe incorrect." });
         }
 
-        // Vérifier le mot de passe
         const isMatch = await bcrypt.compare(password, user.password);
         if (!isMatch) {
             return res.status(400).json({ message: "Email ou mot de passe incorrect." });
         }
 
-        // Générer un token JWT
         const token = jwt.sign(
             { userId: user._id, role: user.role },
             JWT_SECRET,
@@ -69,7 +65,6 @@ exports.login = async (req, res) => {
     }
 };
 
-// 📌 **Middleware pour protéger les routes (authentification requise)**
 exports.authMiddleware = (req, res, next) => {
     const authHeader = req.header("Authorization");
 
@@ -77,14 +72,13 @@ exports.authMiddleware = (req, res, next) => {
         return res.status(401).json({ message: "Accès non autorisé." });
     }
 
-    // Vérifier que le token commence bien par "Bearer "
     const tokenParts = authHeader.split(" ");
     if (tokenParts.length !== 2 || tokenParts[0] !== "Bearer") {
         return res.status(401).json({ message: "Format du token invalide." });
     }
 
     try {
-        const token = tokenParts[1]; // Extraire uniquement le token
+        const token = tokenParts[1];
         const decoded = jwt.verify(token, JWT_SECRET);
         req.user = decoded;
         next();
@@ -93,13 +87,13 @@ exports.authMiddleware = (req, res, next) => {
     }
 };
 
-// 📌 **Récupérer le profil utilisateur**
+
 exports.getProfile = async (req, res) => {
     try {
-        // Récupérer l'utilisateur en fonction de son rôle
+        
         let user;
         if (req.user.role === 'doctor') {
-            user = await Doctor.findById(req.user.userId).select('-password'); // Exclure le mot de passe
+            user = await Doctor.findById(req.user.userId).select('-password');
         } else if (req.user.role === 'patient') {
             user = await Patient.findById(req.user.userId).select('-password');
         } else {

@@ -1,8 +1,8 @@
-const User = require('../models/user'); // Modèle Parent
-const Doctor = require('../models/docter'); // Modèle Spécifique
-const Patient = require('../models/patient'); // Modèle Spécifique
+const User = require('../models/user');
+const Doctor = require('../models/docter');
+const Patient = require('../models/patient');
 
-// 📌 **Ajouter un utilisateur**
+
 exports.addUser = async (req, res) => {
     try {
         const userData = req.body;
@@ -33,7 +33,7 @@ exports.addUser = async (req, res) => {
     }
 };
 
-// 📌 **Récupérer tous les utilisateurs**
+
 exports.getAllUsers = async (req, res) => {
     try {
       const users = await User.find();
@@ -43,7 +43,6 @@ exports.getAllUsers = async (req, res) => {
     }
   };
 
-  // 📌 **Récupérer un utilisateur par son ID**
 exports.getUserById = async (req, res) => {
     try {
       const id = req.params.id;
@@ -79,7 +78,6 @@ exports.getUserById = async (req, res) => {
         const id = req.params.id;
         const newData = req.body;
 
-        // 🔹 Ensure that only provided fields are updated
         const updatedUser = await User.findByIdAndUpdate(id, { $set: newData }, { new: true, runValidators: true });
 
         if (!updatedUser) {

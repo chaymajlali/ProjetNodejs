@@ -6,10 +6,10 @@ const userSchema = new mongoose.Schema({
   password: { type: String, required: true },
   image: { type: String },
   role: { type: String, enum: ['admin', 'doctor', 'patient'], required: true },
-  telephone: { type: String },  // 🔹 Ensure telephone can be updated
-  specialite: { type: String }, // 🔹 Only for doctors
-  tarif: { type: Number },       // 🔹 Only for doctors
-  adresse: { type: String }      // 🔹 Only for patients
+  telephone: { type: String },
+  specialite: { type: String },
+  tarif: { type: Number },     
+  adresse: { type: String }   
 }, { timestamps: true });
 
 const User = mongoose.model('User', userSchema);

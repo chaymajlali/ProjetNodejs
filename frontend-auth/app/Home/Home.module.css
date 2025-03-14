@@ -1,14 +1,14 @@
-/* Styles de la navbar */
+
 .navbar {
   width: 100%;
-  background-color: rgba(0, 0, 0, 0.475); /* Noir pastel */
+  background-color: rgba(0, 0, 0, 0.475);
   position: fixed;
   top: 0;
   left: 0;
   padding: 15px 30px; 
   z-index: 1000;
-  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1); /* Ombre légère */
-  backdrop-filter: blur(12px); /* Flou plus intense */
+  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+  backdrop-filter: blur(12px);
   transition: background-color 0.3s ease;
 }
 
@@ -64,7 +64,7 @@
   transform: scaleX(1);
 }
 
-/* Sections principales */
+
 .container {
   display: flex;
   flex-direction: column;
@@ -86,7 +86,7 @@
   }
 }
 
-/* En-tête avec image de fond et overlay ajustée */
+
 .header {
   width: 100%;
   height: 400px;
@@ -100,7 +100,7 @@
   position: relative;
   border-radius: 15px;
   overflow: hidden;
-  margin-top: 80px; /* Pour s'assurer que l'image est en dessous de la navbar */
+  margin-top: 80px;
   animation: fadeInZoom 2s ease-in-out;
 }
 

@@ -32,7 +32,6 @@ export default function EditUser() {
         setEditedData(prev => {
             let updatedData = { ...prev, [name]: name === "tarif" ? Number(value) : value };
     
-            // 🔹 Reset fields based on role change
             if (name === "role") {
                 if (value === "doctor") {
                     updatedData = { ...updatedData, telephone: "", adresse: "", specialite: "", tarif: 0 };
@@ -55,18 +54,18 @@ export default function EditUser() {
                 await updateUser(user._id, {
                     nom: editedData.nom,
                     email: editedData.email,
-                    role: editedData.role,  // 🔹 Ensure role is sent
-                    telephone: editedData.telephone,  // 🔹 Ensure phone is sent
+                    role: editedData.role,
+                    telephone: editedData.telephone,
                     specialite: editedData.specialite,
                     tarif: editedData.tarif,
                     adresse: editedData.adresse
                 });
     
-                // Fetch the updated user from the backend
+                
                 const updatedUser = await getUserById(user._id);
                 setUser(updatedUser.data);  
     
-                // Redirect after successful update
+                
                 router.push("/users");
             } catch (error) {
                 console.error("Error updating user:", error);
@@ -86,7 +85,7 @@ export default function EditUser() {
                 <h1 className="text-3xl font-bold text-center text-gray-800 mb-8">Edit User</h1>
 
                 <div className="space-y-6">
-    {/* Name Input */}
+    
     <div>
         <label className="block text-lg font-medium text-black mb-2" htmlFor="name">
             Name
@@ -100,7 +99,7 @@ export default function EditUser() {
         />
     </div>
 
-    {/* Email Input */}
+    
     <div>
         <label className="block text-lg font-medium text-black mb-2" htmlFor="email">
             Email
@@ -114,7 +113,7 @@ export default function EditUser() {
         />
     </div>
 
-    {/* Role Selection */}
+    
     <div>
         <label className="block text-lg font-medium text-black mb-2" htmlFor="role">
             Role
@@ -131,7 +130,7 @@ export default function EditUser() {
         </select>
     </div>
 
-    {/* Dynamic Doctor Fields */}
+    
     {editedData.role === "doctor" && (
         <>
             <div>
@@ -162,7 +161,7 @@ export default function EditUser() {
         </>
     )}
 
-    {/* Dynamic Patient Fields */}
+    
     {editedData.role === "patient" && (
         <>
             <div>
@@ -193,7 +192,7 @@ export default function EditUser() {
         </>
     )}
 
-    {/* Action Buttons */}
+    
     <div className="flex justify-center space-x-4 mt-6">
         <button
             onClick={handleSave}

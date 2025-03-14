@@ -44,23 +44,18 @@ export default function Users() {
 
     return (
         <div className="min-h-screen bg-gray-50">
-            {/* Navbar */}
+            
             <nav className="bg-blue-900 p-4">
                 <div className="max-w-7xl mx-auto flex justify-between items-center">
                     <h1 className="text-3xl font-bold text-white">Cabinet Dentaire</h1>
-                    <ul className="flex space-x-6">
-                        <li><a href="/Home" className="text-white hover:text-yellow-400">Home</a></li>
-                        <li><a href="/users" className="text-white hover:text-yellow-400">Users</a></li>
-                        <li><a href="/calendar" className="text-white hover:text-yellow-400">Calendar</a></li>
-                    </ul>
                 </div>
             </nav>
 
-            {/* Users List Section */}
+            
             <div className="container max-w-7xl mx-auto p-6 mt-6">
                 <h1 className="text-3xl font-semibold text-center text-gray-800 mb-8">Users List</h1>
 
-                {/* Create New User Button */}
+                
                 <div className="mb-6">
                     <button
                         onClick={handleCreateUser}
@@ -70,7 +65,7 @@ export default function Users() {
                     </button>
                 </div>
 
-                {/* Users Table */}
+                
                 <div className="overflow-x-auto bg-white shadow-lg rounded-lg border border-gray-200">
                     <table className="min-w-full table-auto">
                         <thead className="bg-blue-800 text-white">

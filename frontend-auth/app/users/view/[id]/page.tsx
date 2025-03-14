@@ -1,29 +1,29 @@
-"use client";  // Mark this as a client-side component
+"use client";
 
-import { useParams, useRouter } from "next/navigation";  // Use next/navigation
+import { useParams, useRouter } from "next/navigation";
 import { useEffect, useState } from "react";
-import { getUserById, User } from "@/services/userService";  // Adjust this import based on your service
+import { getUserById, User } from "@/services/userService";
 
 export default function ViewUser() {
-    const { id } = useParams();  // Access the route parameters using useParams
+    const { id } = useParams(); 
     const [user, setUser] = useState<User | null>(null);
 
     useEffect(() => {
         if (id) {
-            fetchUser(id);  // Fetch user by ID when the component is mounted
+            fetchUser(id);
         }
     }, [id]);
 
     const fetchUser = async (userId: string) => {
         try {
-            const response = await getUserById(userId);  // Fetch user data by ID
+            const response = await getUserById(userId);
             setUser(response.data);
         } catch (error) {
             console.error("Error fetching user:", error);
         }
     };
 
-    if (!user) return <div className="text-center text-gray-500">Loading...</div>;  // Show loading state while fetching user
+    if (!user) return <div className="text-center text-gray-500">Loading...</div>;
 
     return (
         <div className="min-h-screen flex justify-center items-center py-6">

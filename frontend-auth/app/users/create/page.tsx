@@ -9,7 +9,7 @@ export default function CreateUser() {
         nom: "",
         email: "",
         password: "",
-        role: "patient", // Default role is patient
+        role: "patient",
         image: "",
         telephone: "",
         specialite: "",
@@ -28,9 +28,8 @@ export default function CreateUser() {
     const handleSubmit = async (e: React.FormEvent) => {
         e.preventDefault();
         try {
-            // Add the new user
+            
             await addUser(userData);
-            // Redirect to the users list page after successful creation
             router.push("/users");
         } catch (error) {
             console.error("Error creating user:", error);
@@ -104,7 +103,7 @@ export default function CreateUser() {
                         </select>
                     </div>
 
-                    {/* Fields for patients */}
+                    
                     {userData.role === "patient" && (
                         <>
                             <div>
@@ -139,7 +138,7 @@ export default function CreateUser() {
                         </>
                     )}
 
-                    {/* Fields for doctors */}
+                    
                     {userData.role === "doctor" && (
                         <>
                             <div>

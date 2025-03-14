@@ -1,26 +1,54 @@
 "use client";
-import React from 'react';
-import Link from 'next/link';
-import styles from './Home.module.css';
+import React, { useEffect, useState } from "react";
+import Link from "next/link";
+import styles from "./Home.module.css";
 
 export default function Home() {
+  const [isAuthenticated, setIsAuthenticated] = useState(false);
+
+  useEffect(() => {
+    const token = localStorage.getItem("token");
+    setIsAuthenticated(!!token);
+  }, []);
+
+  const handleLogout = () => {
+    localStorage.removeItem("token"); 
+    localStorage.removeItem("user");
+    window.location.href = "/Home";
+  };
+
   return (
     <div className={styles.container}>
-      {/* Navbar */}
+      
       <nav className={styles.navbar}>
         <div className={styles.navContainer}>
           <h1 className={styles.navLogo}>Cabinet Dentaire</h1>
           <ul className={styles.navLinks}>
-
             
-            <li><Link href="/login" className={styles.navLink}>Se connecter</Link></li>
-            <li><Link href="/register" className={styles.navLink}>S'inscrire</Link></li>
-
+            {!isAuthenticated ? (
+              <>
+                <li><Link href="/register" className={styles.navLink}>S'inscrire</Link></li>
+                <li><Link href="/login" className={styles.navLink}>Se connecter</Link></li>
+              </>
+            ) : (
+              <>
+                
+                <li><Link href="/calendar" className={styles.navLink}>Calendrier</Link></li>
+                <li>
+                  <button 
+                    onClick={handleLogout} 
+                    className="btn btn-danger"
+                  >
+                    Se déconnecter
+                  </button>
+                </li>
+              </>
+            )}
           </ul>
         </div>
       </nav>
 
-      {/* En-tête avec une image de fond */}
+      
       <header className={styles.header}>
         <div className={styles.overlay}>
           <h1 className={styles.title}>DENTISTE</h1>
@@ -28,8 +56,9 @@ export default function Home() {
         </div>
       </header>
 
+      
       <main className={styles.main}>
-        {/* Section 1 : Notre cadre dentaire */}
+        
         <section className={styles.section}>
           <div className={styles.sectionContent}>
             <h2 className={styles.sectionTitle}>Bienvenue dans notre cabinet dentaire</h2>
@@ -39,7 +68,7 @@ export default function Home() {
               Cabinet Conventionné
             </p>
 
-            {/* Section des images */}
+            
             <div className={styles.imageContainer}>
               <img src="/images/dentiste.jpg" alt="Cabinet Dentaire" className={styles.sectionImage} />
               <img src="/images/op1.jpg" alt="Autre image" className={styles.sectionImage} />
@@ -54,7 +83,7 @@ export default function Home() {
           </div>
         </section>
 
-        {/* Section 2 : Prise de rendez-vous rapide */}
+        
         <section className={styles.section}>
           <div className={styles.sectionContent}>
             <h2 className={styles.sectionTitle}>PRISE DE RENDEZ-VOUS RAPIDE</h2>
@@ -66,7 +95,7 @@ export default function Home() {
           </div>
         </section>
 
-        {/* Section 3 : Dentiste généraliste */}
+        
         <section className={styles.section}>
           <div className={styles.sectionContent}>
             <h2 className={styles.sectionTitle}>
@@ -86,7 +115,7 @@ export default function Home() {
           </div>
         </section>
 
-        {/* Section 4 : Traitements dentaires */}
+        
         <section className={styles.section}>
           <div className={styles.sectionContent}>
             <h2 className={styles.sectionTitle}>Nos traitements dentaires</h2>
@@ -100,7 +129,7 @@ export default function Home() {
           </div>
         </section>
 
-        {/* Section 5 : Localisation du cabinet */}
+        
         <section className={styles.section}>
           <div className={styles.sectionContent}>
             <h2 className={styles.sectionTitle}>Où nous trouver ?</h2>
@@ -109,10 +138,9 @@ export default function Home() {
             </div>
           </div>
         </section>
-
       </main>
 
-      {/* Pied de page */}
+      
       <footer className={styles.footer}>
         <p className={styles.footerText}>
           © 2025 Cabinet Dentaire. Tous droits réservés.

@@ -9,7 +9,7 @@ export default function Login() {
   const [loading, setLoading] = useState(false);
   const router = useRouter();
 
-  const handleSubmit = async (e) => {
+  const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     setLoading(true);
     setError("");
@@ -24,10 +24,17 @@ export default function Login() {
       const data = await response.json();
 
       if (response.ok) {
+        
         localStorage.setItem("token", data.token);
         localStorage.setItem("user", JSON.stringify(data.user));
         console.log("✅ Connexion réussie :", data.user);
-        router.push("/users");
+
+        
+        if (data.user.role === "admin") {
+          router.push("/admin");
+        } else {
+          router.push("/Home");
+        }
       } else {
         setError(data.message || "Identifiants incorrects");
       }
@@ -47,7 +54,7 @@ export default function Login() {
 
         <form onSubmit={handleSubmit} className="space-y-4">
           <div className="input-group">
-          <input
+            <input
               type="email"
               value={email}
               onChange={(e) => setEmail(e.target.value)}
@@ -55,7 +62,6 @@ export default function Login() {
               className="w-full p-3 rounded-lg bg-white bg-opacity-20 placeholder-gray-400 text-black focus:ring-2 focus:ring-blue-400 outline-none"
               required
             />
-
           </div>
 
           <div className="input-group">
@@ -84,12 +90,6 @@ export default function Login() {
             Inscrivez-vous ici
           </a>
         </p>
-      </div>
-
-      {/* Section pour l'image et la citation */}
-      <div className="image-container">
-        <img src="/images/doctor.jpg" alt="Doctor" /> {/* Remplacez par le chemin de votre image */}
-        <p className="quote">"La santé est le plus grand des trésors." </p>
       </div>
     </div>
   );
